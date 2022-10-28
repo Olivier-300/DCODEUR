@@ -38,4 +38,10 @@ typedef struct noeud_adj{
 
 }noeud_adj;
 
+typedef struct arbre_adj{
+
+    noeud_adj root;
+
+}a_adj;
+
 #endif //DCODEUR_ARBRES_ADJ_H
