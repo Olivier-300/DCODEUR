@@ -10,6 +10,7 @@
 typedef struct flechies_verbe{
 
     char* forme_conj;
+    char* infinitif;
     char pers[2];
     char nombre_gram[2];  //singulier pluriel
     char temps[5];
