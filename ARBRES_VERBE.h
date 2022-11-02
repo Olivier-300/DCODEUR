@@ -6,7 +6,6 @@
 #define DCODEUR_ARBRES_VERBE_H
 #define ALPHABET 26
 
-
 typedef struct flechies_verbe{
 
     char* forme_conj;
@@ -43,8 +42,19 @@ typedef struct noeud_verbe{
 
 typedef struct arbre_verbe{
 
-    noeud_verbe  root;
+    noeud_verbe  *root;
 
 }a_vrb;
+
+
+void ajt_vrb_txt(char*);
+
+int isVrbInFichier(char*);
+
+noeud_verbe *newNode(char);
+
+void ajouter_mot(noeud_verbe **,char*);
+
+a_vrb initialise();
 
 #endif //DCODEUR_ARBRES_VERBE_H
