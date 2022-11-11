@@ -7,12 +7,12 @@
 
 #include "ARBRES_VERBE.h"
 
+
 typedef struct flechies_nom{
 
-    int nb_formes;
     char* forme_flechie;
-    char nombre_gram[2];  //singulier pluriel
-    char genre[3];
+    char* nombre_gram;  //singulier pluriel
+    char* genre;
 
 }flechies_nom;
 
@@ -21,11 +21,11 @@ typedef struct cell_flechies_nom{
     flechies_nom flechies;
     struct cell_flechies_nom* next;
 
-}*p_flechie_nom;
+}t_flechie_nom,*p_flechie_nom;
 
 typedef struct liste_flechie_nom{
 
-    p_flechie_nom head;
+    p_flechie_nom head,tail;
 
 }l_flechie_nom;
 
@@ -40,7 +40,18 @@ typedef struct noeud_nom{
 
 typedef struct arbre_nom{
 
-    noeud_nom root;
+    noeud_nom *root;
 
 }a_nom;
+
+a_nom arbre_nom();
+
+int isNomInFichier(char*);
+
+void ajt_nom_txt(char*);
+
+a_nom initialiser_nom();
+
+void ajouter_mot_nom(noeud_nom **,char*,char*);
+
 #endif //DCODEUR_ARBRES_NOMS_H
