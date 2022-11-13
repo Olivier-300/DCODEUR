@@ -7,5 +7,5 @@
 int is_forme_flechie_in_node(noeud_verbe*);
 int count_sons_in_node(noeud_verbe*);
 void verb_random_node(noeud_verbe*);
-void verb_random_tree(a_vrb*);
+void verb_random_tree(a_vrb);
 #endif //DCODEUR_CREA_PHRASES_H

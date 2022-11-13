@@ -11,6 +11,8 @@
 
 a_vrb arbre_verbe(){
 
+    FILE *suppr=fopen("verbe.txt","w");
+    fclose(suppr);
     FILE *fic ;
     fic = fopen("texte.txt","r");
     char texte[256];
