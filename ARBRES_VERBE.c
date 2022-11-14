@@ -11,7 +11,8 @@
 
 a_vrb arbre_verbe(){
 
-    FILE *suppr=fopen("verbe.txt","w");
+    FILE* suppr;
+    suppr= fopen("verbe.txt","w");
     fclose(suppr);
     FILE *fic ;
     fic = fopen("texte.txt","r");
@@ -38,6 +39,7 @@ a_vrb arbre_verbe(){
                 strcpy(coco,portion2);
                 ajt_vrb_txt( portion2);
                 ajouter_mot(&arbre.root,portion2,coco);
+
 
             }
         }
