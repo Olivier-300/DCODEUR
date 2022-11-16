@@ -54,6 +54,8 @@ void ajt_vrb_txt(char*);
 
 int isVrbInFichier(char*);
 
+int isLetterintab(noeud_verbe*,char);
+
 noeud_verbe *newNode(char);
 
 void deleteletter(char** val);

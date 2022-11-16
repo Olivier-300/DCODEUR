@@ -15,7 +15,7 @@ a_vrb arbre_verbe(){
     suppr= fopen("verbe.txt","w");
     fclose(suppr);
     FILE *fic ;
-    fic = fopen("texte.txt","r");
+    fic = fopen("test.txt","r");
     char texte[256];
     a_vrb arbre=initialise();
 
@@ -35,11 +35,16 @@ a_vrb arbre_verbe(){
 
             if (!isVrbInFichier(portion2)){
 
+                int i=0;
                 char coco[24];
                 strcpy(coco,portion2);
                 ajt_vrb_txt( portion2);
                 ajouter_mot(&arbre.root,portion2,coco);
-
+                noeud_verbe* tmp=arbre.root;
+                printf("%c\n",arbre.root->sons[18]->lettre);
+                tmp=arbre.root->sons[18];
+                printf("%c\n",tmp->sons[0]->lettre);
+                //printf("%d\n",i);
 
             }
         }
@@ -194,11 +199,8 @@ void ajouter_lflechies(noeud_verbe* noeud, char* val){
 
     FILE *fic ;
     noeud->nb_formes=0;
-    fic = fopen("texte.txt","r");
+    fic = fopen("test.txt","r");
     char texte[256];
-    if(fic==NULL){
-        exit(1);
-    }
     while(fgets(texte, 255, fic)!= NULL) {
 
 

@@ -10,6 +10,7 @@
 
 typedef struct flechies_nom{
 
+    char* nom;
     char* forme_flechie;
     char* nombre_gram;  //singulier pluriel
     char* genre;

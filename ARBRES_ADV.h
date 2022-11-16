@@ -9,7 +9,7 @@
 
 typedef struct flechies_adverbe{
 
-    int nb_formes;
+    char* adv;
     char* forme_flechie;
 
 }flechies_adverbe;
@@ -19,11 +19,11 @@ typedef struct cell_flechies_adv{
     flechies_adverbe flechies;
     struct cell_flechies_adv* next;
 
-}*p_flechie_adv;
+}t_flechie_adv,*p_flechie_adv;
 
 typedef struct liste_flechie_adv{
 
-    p_flechie_adv head;
+    p_flechie_adv head,tail;
 
 }l_flechie_adv;
 
@@ -38,8 +38,18 @@ typedef struct noeud_adv{
 
 typedef struct arbre_adv{
 
-    noeud_adv root;
+    noeud_adv* root;
 
 }a_adv;
+
+a_adv arbre_adv();
+
+void ajt_adv_txt(char*);
+
+int isAdvInFichier(char*);
+
+a_adv initialiser_adv();
+
+void ajouter_mot_adv(noeud_adv **,char*,char*);
 
 #endif //DCODEUR_ARBRES_ADV_H

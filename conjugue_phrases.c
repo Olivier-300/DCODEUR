@@ -108,16 +108,16 @@ char * conjugueV(noeud_verbe nodeV, noeud_nom nodeN2,int code){
 }
 
 char* conjugueA(noeud_adj nodeA, noeud_verbe nodeV, noeud_nom nodeN2,int code){
-    char* acc = 'SG';
+    char acc[] = "SG";
     char* genre = "Fem";
     if(code > 50){
         code = code -100;
     }
     if (code%2 == 0){
-        acc = 'PL';
+        strcpy(acc,"PL");
     }
     if(code > 5){
-        genre = 'Mas';
+        genre = "Mas";
     }
     int allgood = 0;
     p_flechie_adj temp = nodeA.l_flechie.head;
@@ -131,7 +131,7 @@ char* conjugueA(noeud_adj nodeA, noeud_verbe nodeV, noeud_nom nodeN2,int code){
     }
 
     char* adj = temp->flechies.forme_flechie;
-    char* espace = ' ';
+    char* espace = " ";
     strcat(adj,espace);
 
     char * phrase = conjugueV(nodeV,nodeN2,code);
