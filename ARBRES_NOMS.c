@@ -9,8 +9,11 @@
 
 a_nom arbre_nom(){
 
+    FILE* suppr;
+    suppr= fopen("nom.txt","w");
+    fclose(suppr);
     FILE *fic ;
-    fic = fopen("texte.txt","r");
+    fic = fopen("test.txt","r");
     char texte[256];
     a_nom arbre=initialiser_nom();
 
@@ -168,7 +171,7 @@ void ajouter_lflechies_nom(noeud_nom * noeud, char* val){
 
     FILE *fic ;
     noeud->nb_formes=0;
-    fic = fopen("texte.txt","r");
+    fic = fopen("test.txt","r");
     char texte[256];
     while(fgets(texte, 255, fic)!= NULL) {
 
@@ -188,6 +191,8 @@ void ajouter_lflechies_nom(noeud_nom * noeud, char* val){
             noeud->nb_formes+=1;
             printf("[%d]\n",noeud->nb_formes);
             addTail_nom(&noeud->l_flechie);
+            noeud->l_flechie.tail->flechies.nom = malloc(strlen(portion2)* sizeof(char));
+            strcpy(noeud->l_flechie.tail->flechies.nom,portion2);
             noeud->l_flechie.tail->flechies.forme_flechie = malloc(strlen(portion1)* sizeof(char));
             strcpy(noeud->l_flechie.tail->flechies.forme_flechie,portion1);
 
@@ -231,8 +236,10 @@ void afficher_liste_nom(noeud_nom * nom){
     p_flechie_nom temp;
     temp=nom->l_flechie.head;
     while(temp!=NULL){
+
         printf("%d\n",nom->nb_formes);
         printf("%s\n",temp->flechies.genre);
+        printf("%s\n",temp->flechies.nom);
         printf("%s\n",temp->flechies.nombre_gram);
         printf("|\nv\n");
         temp=temp->next;
