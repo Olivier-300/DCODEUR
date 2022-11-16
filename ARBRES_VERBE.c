@@ -196,6 +196,9 @@ void ajouter_lflechies(noeud_verbe* noeud, char* val){
     noeud->nb_formes=0;
     fic = fopen("texte.txt","r");
     char texte[256];
+    if(fic==NULL){
+        exit(1);
+    }
     while(fgets(texte, 255, fic)!= NULL) {
 
 

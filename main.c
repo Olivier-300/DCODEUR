@@ -6,8 +6,11 @@
 
 int main() {
     int c;
-    a_vrb verbe=arbre_verbe();
-    do{
+    a_vrb verbe=initialise();
+    char test[]="stabiliser";
+    char cpie[]="stabiliser";
+    ajouter_mot(&verbe.root,test,cpie);
+    /*do{
         printf("Quelle structure voulez-vous choisir pour votre phrase?\n");
         printf("Taper 1 pour : nom - adjectif - verbe - nom\n");
         printf("Taper 2 pour : nom - `qui` - verbe - verbe - nom - adjectif\n");
@@ -26,5 +29,5 @@ int main() {
         case 3:
             printf("Taper 3 pour : nom - `n'` - verbe - `pas` - adverbe - nom - adjectif\n");
             break;
-    }
+    }*/
 }

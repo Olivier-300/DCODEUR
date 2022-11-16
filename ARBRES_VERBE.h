@@ -21,7 +21,7 @@ typedef struct flechies_verbe{
 typedef struct cell_flechies_verbe{
 
     flechies_verbe flechies;
-    struct cell_flechies_verbe* next;
+    struct cell_flechie_verbe* next;
 
 }t_flechie_vrb,*p_flechie_vrb;
 
