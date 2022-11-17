@@ -13,6 +13,13 @@ typedef struct codeTab{
 
 }codetab;
 
+noeud_verbe* get_l_flechie_vrb(a_vrb,char*);
+noeud_nom * get_l_flechie_nom(a_nom,char*);
+noeud_adj* get_l_flechie_adj(a_adj,char*);
+noeud_adv* get_l_flechie_adv(a_adv,char*);
+
+
+char * concat(char * str1, unsigned int nbc1, char * str2, unsigned int nbc2);
 int randN(noeud_nom);
 codetab nomconvert(noeud_nom);
 
@@ -20,6 +27,7 @@ char* conjugueN1(noeud_nom,noeud_adj, noeud_verbe, noeud_nom);
 char* conjugueA(noeud_adj nodeA, noeud_verbe nodeV, noeud_nom nodeN2,int);
 char * conjugueV(noeud_verbe nodeV, noeud_nom nodeN2,int code);
 char * conjugueN2(noeud_nom);
+char* conjugueN1(noeud_nom,noeud_adj, noeud_verbe, noeud_nom);
 
 char* conjugueN1_2(noeud_nom, noeud_verbe, noeud_nom,noeud_adj);
 char * conjugueV_2(noeud_verbe nodeV, noeud_nom nodeN2,noeud_adj nodeA,int code);

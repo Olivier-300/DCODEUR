@@ -60,3 +60,5 @@ visiter
 voiturer
 zebrer
 zigzaguer
+narrer
+effriter

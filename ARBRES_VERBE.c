@@ -35,16 +35,10 @@ a_vrb arbre_verbe(){
 
             if (!isVrbInFichier(portion2)){
 
-                int i=0;
                 char coco[24];
                 strcpy(coco,portion2);
                 ajt_vrb_txt( portion2);
                 ajouter_mot(&arbre.root,portion2,coco);
-                noeud_verbe* tmp=arbre.root;
-                printf("%c\n",arbre.root->sons[18]->lettre);
-                tmp=arbre.root->sons[18];
-                printf("%c\n",tmp->sons[0]->lettre);
-                //printf("%d\n",i);
 
             }
         }
@@ -256,7 +250,6 @@ void ajouter_lflechies(noeud_verbe* noeud, char* val){
                     if(etape==3){
                         nv_portions=strtok(NULL,"\n");
                         strcpy(noeud->l_flechie.tail->flechies.pers,nv_portions);
-                        printf("%s\n",noeud->l_flechie.tail->flechies.pers);
                     }
                     break;
                 }
@@ -348,7 +341,7 @@ void ajouter_mot(noeud_verbe ** noeud,char* val,char* copieval) {
     if(val[1]=='\0'){
 
         ajouter_lflechies(temp,copie);
-        afficher_liste(temp);
+        //afficher_liste(temp);
 
     }
     deleteletter(&val);

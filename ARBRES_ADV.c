@@ -192,9 +192,7 @@ void ajouter_lflechies_adv(noeud_adv * noeud, char* val){
         char *portion4 = strtok(NULL, "\0");
         if (strcmp(portion3,"Adv")==0 && strcmp(portion2,val)==0) {
 
-            printf("[%d]\n",noeud->nb_formes);
             noeud->nb_formes+=1;
-            printf("[%d]\n",noeud->nb_formes);
             addTail_adv(&noeud->l_flechie);
             noeud->l_flechie.tail->flechies.adv = malloc(strlen(portion2)* sizeof(char));
             strcpy(noeud->l_flechie.tail->flechies.adv,portion2);
@@ -238,7 +236,7 @@ void ajouter_mot_adv(noeud_adv ** noeud,char* val,char* copieval) {
     if(val[1]=='\0'){
 
         ajouter_lflechies_adv(temp,copie);
-        afficher_liste_adv(temp);
+        //afficher_liste_adv(temp);
 
     }
     deleteletter(&val);

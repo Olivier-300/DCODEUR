@@ -6,6 +6,92 @@
 #include <string.h>
 
 
+char * concat(char * str1, unsigned int nbc1, char * str2, unsigned int nbc2){
+    unsigned int i = 0;
+    char * rstr = (char*)malloc((nbc1+nbc2+1) * sizeof(char));
+    for(i = 0; i < nbc1; i++){
+        *(rstr + i) = *(str1 + i);
+    }
+
+    for(i = 0; i < nbc2; i++){
+        *(rstr + nbc1 + i) = *(str2 + i);
+    }
+    *(rstr + nbc1 + nbc2 + 1) = '\0';
+    return rstr;
+}
+
+noeud_verbe* get_l_flechie_vrb(a_vrb arbre,char* nom){
+
+    noeud_verbe* tmp=arbre.root;
+    for(int i=0;i< strlen(nom);i++){
+
+        int j=0;
+        while(tmp->sons[j]->lettre != nom[i]){
+
+            j++;
+
+        }
+        tmp=tmp->sons[j];
+
+    }
+    return tmp;
+
+}
+
+noeud_nom * get_l_flechie_nom(a_nom arbre,char* nom){
+
+    noeud_nom* tmp=arbre.root;
+    for(int i=0;i< strlen(nom);i++){
+
+        int j=0;
+        while(tmp->sons[j]->lettre != nom[i]){
+
+            j++;
+
+        }
+        tmp=tmp->sons[j];
+
+    }
+    return tmp;
+
+}
+
+noeud_adj* get_l_flechie_adj(a_adj arbre,char* nom){
+
+    noeud_adj* tmp=arbre.root;
+    for(int i=0;i< strlen(nom);i++){
+
+        int j=0;
+        while(tmp->sons[j]->lettre != nom[i]){
+
+            j++;
+
+        }
+        tmp=tmp->sons[j];
+
+    }
+    return tmp;
+
+}
+
+noeud_adv* get_l_flechie_adv(a_adv arbre,char* nom){
+
+    noeud_adv* tmp=arbre.root;
+    for(int i=0;i< strlen(nom);i++){
+
+        int j=0;
+        while(tmp->sons[j]->lettre != nom[i]){
+
+            j++;
+
+        }
+        tmp=tmp->sons[j];
+
+    }
+    return tmp;
+
+}
+
 int randN(noeud_nom node){
     return rand()%node.nb_formes;
 }
@@ -20,10 +106,10 @@ codetab nomconvert(noeud_nom nodeN){
 
     // voyelle  masc  sing
     int code = 000;
-    if (accord == "SG"){
+    if (strcmp(accord,"SG")==0){
         code += 1;
     }
-    if (genre == "Mas"){
+    if (strcmp(genre,"Mas")==0){
         code += 10;
     }
     if (nodeN.lettre == 'a' || nodeN.lettre == 'e' ||nodeN.lettre == 'i' ||nodeN.lettre == 'o' ||nodeN.lettre == 'u' ||nodeN.lettre == 'y' ){
@@ -33,10 +119,10 @@ codetab nomconvert(noeud_nom nodeN){
     codetab * tableau;
     tableau = malloc(8*sizeof(codetab));
 
-    tableau[0].code = 000;
-    tableau[1].code = 001;
-    tableau[2].code = 010;
-    tableau[3].code = 011;
+    tableau[0].code = 0;
+    tableau[1].code = 1;
+    tableau[2].code = 10;
+    tableau[3].code = 11;
     tableau[4].code = 100;
     tableau[5].code = 101;
     tableau[6].code = 110;
@@ -62,13 +148,15 @@ codetab nomconvert(noeud_nom nodeN){
             cpt += 1;
         }
     }
-    char* determinant = tableau[cpt].cle; // le determinant mis devant le mot
+    char* determinant; // le determinant mis devant le mot
+    determinant=tableau[cpt].cle;
     char* nom1 = temp->flechies.forme_flechie;
     codetab resultat;
-
-    strcat(determinant,nom1); //concatenation
+    determinant = concat(determinant, strlen(determinant),nom1, strlen(nom1));
     resultat.code = code;
     resultat.cle = determinant;
+    printf("%d\n",code);
+
     return resultat;
 }
 
@@ -79,37 +167,41 @@ char* conjugueN2(noeud_nom nodeN2){  // dernier nom de la phrase
 }
 //forme fléchie du verbe
 char * conjugueV(noeud_verbe nodeV, noeud_nom nodeN2,int code){
-    char* acc = 'SG';
+    char acc[] = "SG";
     if(code > 5){
         code = code -10;
     }
     if (code%2 == 0){
-        acc = 'PL';
+        strcpy(acc,"PL");
     }
     int allgood = 0;
 
     p_flechie_vrb temp = nodeV.l_flechie.head;
-    while (allgood == 0){  // trouver la forme fléchie qui correspond au code
-        if (temp->flechies.nombre_gram == acc && temp->flechies.pers == "P3"){
+    while (allgood == 0 && temp!=NULL){  // trouver la forme fléchie qui correspond au code
+
+        if (temp->flechies.nombre_gram == acc && strcmp(temp->flechies.pers,"P3")==0){
             allgood = 1;
         }
         else{
             temp = temp->next;
         }
-    }
 
+    }
+    if(!temp){
+        temp = nodeV.l_flechie.head;
+    }
     char* verbe = temp->flechies.forme_conj;
-    char* espace = ' ';
-    strcat(verbe,espace);
+    char espace[] = " " ;
+    verbe=concat(verbe, strlen(verbe),espace, strlen(espace));
 
     char * phrase = conjugueN2(nodeN2);
-    strcat(verbe,phrase);
+    concat(verbe, strlen(verbe),phrase, strlen(phrase));
     return verbe;
 }
 //Forme fléchie de l'adjectif
 char* conjugueA(noeud_adj nodeA, noeud_verbe nodeV, noeud_nom nodeN2,int code){
     char acc[] = "SG";
-    char* genre = "Fem";
+    char genre[] = "Fem";
     if(code > 50){
         code = code -100;
     }
@@ -117,34 +209,43 @@ char* conjugueA(noeud_adj nodeA, noeud_verbe nodeV, noeud_nom nodeN2,int code){
         strcpy(acc,"PL");
     }
     if(code > 5){
-        genre = "Mas";
+        strcpy(genre,"Mas");
     }
     int allgood = 0;
     p_flechie_adj temp = nodeA.l_flechie.head;
-    while (allgood == 0){
-        if (temp->flechies.nombre_gram == acc && temp->flechies.genre == genre){
+    while (allgood == 0 && temp){
+        if ((strcmp(temp->flechies.nombre_gram,acc)==0) && (strcmp(temp->flechies.genre,genre)==0)){
             allgood = 1;
         }
         else{
             temp = temp->next;
         }
     }
+    if(!temp){
+        temp = nodeA.l_flechie.head;
+        while(strcmp(temp->flechies.genre,"InvGen")!=0){
+            temp=temp->next;
+        }
 
-    char* adj = temp->flechies.forme_flechie;
-    char* espace = " ";
-    strcat(adj,espace);
+    }
+    char* adj;
+    adj=malloc(32*sizeof (char));
+    strcpy(adj,temp->flechies.forme_flechie);
+    char espace[] = " ";
+    concat(adj, strlen(adj),espace, strlen(espace));
+    char * phrase = malloc(30* sizeof(char));
+    strcpy(phrase,conjugueV(nodeV,nodeN2,code));
+    concat(adj, strlen(adj),phrase, strlen(phrase));
 
-    char * phrase = conjugueV(nodeV,nodeN2,code);
-    strcat(adj,phrase);
     return adj;
 }
 //Forme fléchie du premier nom qui appelle ensuite les mots suivants
 char* conjugueN1(noeud_nom nodeN,noeud_adj nodeA, noeud_verbe nodeV, noeud_nom nodeN2){
 
+
     char * determinant = nomconvert(nodeN).cle;
     int code = nomconvert(nodeN).code;
-    strcat(determinant," ");
-
+    determinant=concat(determinant, strlen(determinant)," ", strlen(" "));
     char* phrase = conjugueA(nodeA,nodeV,nodeN2,code);
     strcat(determinant,phrase);
     return determinant;

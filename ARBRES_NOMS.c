@@ -187,9 +187,7 @@ void ajouter_lflechies_nom(noeud_nom * noeud, char* val){
         char *portion4 = strtok(NULL, "\0");
         if (strcmp(portion3,"Nom")==0 && strcmp(portion2,val)==0) {
 
-            printf("[%d]\n",noeud->nb_formes);
             noeud->nb_formes+=1;
-            printf("[%d]\n",noeud->nb_formes);
             addTail_nom(&noeud->l_flechie);
             noeud->l_flechie.tail->flechies.nom = malloc(strlen(portion2)* sizeof(char));
             strcpy(noeud->l_flechie.tail->flechies.nom,portion2);
@@ -267,7 +265,7 @@ void ajouter_mot_nom(noeud_nom ** noeud,char* val,char* copieval) {
     if(val[1]=='\0'){
 
         ajouter_lflechies_nom(temp,copie);
-        afficher_liste_nom(temp);
+        //afficher_liste_nom(temp);
 
     }
     deleteletter(&val);
