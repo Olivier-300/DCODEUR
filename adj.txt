@@ -73,3 +73,6 @@ graisseur
 gothique
 glande
 unificateur
+oleifere
+oleifiant
+oleiforme

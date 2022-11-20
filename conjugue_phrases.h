@@ -5,6 +5,7 @@
 #ifndef DCODEUR_CONJUGUE_PHRASES_H
 #define DCODEUR_CONJUGUE_PHRASES_H
 #include "ARBRES_ADJ.h"
+#include "crea_phrases.h"
 
 typedef struct codeTab{
 
@@ -12,12 +13,6 @@ typedef struct codeTab{
     int code;
 
 }codetab;
-
-noeud_verbe* get_l_flechie_vrb(a_vrb,char*);
-noeud_nom * get_l_flechie_nom(a_nom,char*);
-noeud_adj* get_l_flechie_adj(a_adj,char*);
-noeud_adv* get_l_flechie_adv(a_adv,char*);
-
 
 char * concat(char * str1, unsigned int nbc1, char * str2, unsigned int nbc2);
 int randN(noeud_nom);

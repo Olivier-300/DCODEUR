@@ -62,3 +62,5 @@ zebrer
 zigzaguer
 narrer
 effriter
+kidnapper
+miauler

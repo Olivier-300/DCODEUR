@@ -20,78 +20,6 @@ char * concat(char * str1, unsigned int nbc1, char * str2, unsigned int nbc2){
     return rstr;
 }
 
-noeud_verbe* get_l_flechie_vrb(a_vrb arbre,char* nom){
-
-    noeud_verbe* tmp=arbre.root;
-    for(int i=0;i< strlen(nom);i++){
-
-        int j=0;
-        while(tmp->sons[j]->lettre != nom[i]){
-
-            j++;
-
-        }
-        tmp=tmp->sons[j];
-
-    }
-    return tmp;
-
-}
-
-noeud_nom * get_l_flechie_nom(a_nom arbre,char* nom){
-
-    noeud_nom* tmp=arbre.root;
-    for(int i=0;i< strlen(nom);i++){
-
-        int j=0;
-        while(tmp->sons[j]->lettre != nom[i]){
-
-            j++;
-
-        }
-        tmp=tmp->sons[j];
-
-    }
-    return tmp;
-
-}
-
-noeud_adj* get_l_flechie_adj(a_adj arbre,char* nom){
-
-    noeud_adj* tmp=arbre.root;
-    for(int i=0;i< strlen(nom);i++){
-
-        int j=0;
-        while(tmp->sons[j]->lettre != nom[i]){
-
-            j++;
-
-        }
-        tmp=tmp->sons[j];
-
-    }
-    return tmp;
-
-}
-
-noeud_adv* get_l_flechie_adv(a_adv arbre,char* nom){
-
-    noeud_adv* tmp=arbre.root;
-    for(int i=0;i< strlen(nom);i++){
-
-        int j=0;
-        while(tmp->sons[j]->lettre != nom[i]){
-
-            j++;
-
-        }
-        tmp=tmp->sons[j];
-
-    }
-    return tmp;
-
-}
-
 int randN(noeud_nom node){
     return rand()%node.nb_formes;
 }
@@ -112,7 +40,7 @@ codetab nomconvert(noeud_nom nodeN){
     if (strcmp(genre,"Mas")==0){
         code += 10;
     }
-    if (nodeN.lettre == 'a' || nodeN.lettre == 'e' ||nodeN.lettre == 'i' ||nodeN.lettre == 'o' ||nodeN.lettre == 'u' ||nodeN.lettre == 'y' ){
+    if (nodeN.l_flechie.head->flechies.forme_flechie[0] == 'a' || nodeN.l_flechie.head->flechies.forme_flechie[0] == 'e' ||nodeN.l_flechie.head->flechies.forme_flechie[0] == 'i' ||nodeN.l_flechie.head->flechies.forme_flechie[0] == 'o' ||nodeN.l_flechie.head->flechies.forme_flechie[0] == 'u' ||nodeN.l_flechie.head->flechies.forme_flechie[0] == 'y' ){
         code += 100;
     }
 // tableau de conversion pour accorder et utiliser le code
@@ -155,7 +83,6 @@ codetab nomconvert(noeud_nom nodeN){
     determinant = concat(determinant, strlen(determinant),nom1, strlen(nom1));
     resultat.code = code;
     resultat.cle = determinant;
-    printf("%d\n",code);
 
     return resultat;
 }
@@ -200,6 +127,8 @@ char * conjugueV(noeud_verbe nodeV, noeud_nom nodeN2,int code){
 }
 //Forme fléchie de l'adjectif
 char* conjugueA(noeud_adj nodeA, noeud_verbe nodeV, noeud_nom nodeN2,int code){
+
+    a_adj arbre= arbre_adj();
     char acc[] = "SG";
     char genre[] = "Fem";
     if(code > 50){
@@ -226,7 +155,11 @@ char* conjugueA(noeud_adj nodeA, noeud_verbe nodeV, noeud_nom nodeN2,int code){
         while(strcmp(temp->flechies.genre,"InvGen")!=0){
             temp=temp->next;
         }
+        if(!temp){
 
+            return conjugueA(*(get_l_flechie_adj(arbre, adj_random_tree(arbre))),nodeV,nodeN2,code);
+
+        }
     }
     char* adj;
     adj=malloc(32*sizeof (char));
@@ -247,7 +180,7 @@ char* conjugueN1(noeud_nom nodeN,noeud_adj nodeA, noeud_verbe nodeV, noeud_nom n
     int code = nomconvert(nodeN).code;
     determinant=concat(determinant, strlen(determinant)," ", strlen(" "));
     char* phrase = conjugueA(nodeA,nodeV,nodeN2,code);
-    strcat(determinant,phrase);
+    concat(determinant, strlen(determinant),phrase, strlen(phrase));
     return determinant;
 }
 
@@ -378,5 +311,7 @@ char* conjugueN1_3(noeud_nom nodeN, noeud_verbe nodeV, noeud_adv nodeAdv,noeud_n
     strcat(determinant,phrase);
     return determinant;
 }
+
+
 
 
